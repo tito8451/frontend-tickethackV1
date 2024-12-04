@@ -1,5 +1,5 @@
 
-const apiUrl = "https://backend-tickethack-seven.vercel.app" || 'http://localhost:3000';
+const apiUrl = "https://backend-tickethack-one.vercel.app" || 'http://localhost:3000';
 // Get bookings
 fetch(`${apiUrl}/bookings`)
 // fetch(`http://localhost:3000/bookings`)

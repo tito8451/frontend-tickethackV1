@@ -1,12 +1,12 @@
 // Set date default value to today
-// const apiUrl = "https://backend-tickethack-seven.vercel.app" || 'http://localhost:3000';
+const apiUrl = 'https://backend-tickethack-one.vercel.app' || 'http://localhost:3000';
 document.querySelector('#date').valueAsDate = new Date();
 
 function updateTripBookingEventListener() {
   for (let i = 0; i < document.querySelectorAll('.book').length; i++) {
     document.querySelectorAll('.book')[i].addEventListener('click', function () {
-      fetch("http://localhost:3000/cart", {
-      // fetch(`${apiUrl}/cart`, {
+      // fetch("http://localhost:3000/cart", {
+      fetch(`${apiUrl}/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tripId: this.id }),
@@ -31,21 +31,16 @@ document.querySelector('#search').addEventListener('click', function () {
     return;
   }
 
-  // fetch(`${apiUrl}/search/${departure}/${arrival}/${date}`)
-    // .then(response => response.json())
-  // fetch(`https://backend-tickethack-seven.vercel.app/search/${departure}/${arrival}/${date}`)
-    fetch(`http://localhost:3000/search/${departure}/${arrival}/${date}`)
+  fetch(`${apiUrl}/search/${departure}/${arrival}/${date}`)
     .then(response => {
+      console.log("response",response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     return response.json();
   })
     .then(data => {
-      // console.log("c'est la data du front",data);
-      // console.log('Departure front:', data.departure);
-      // console.log('Arrival front:', data.arrival);
-      // console.log('Date: front', data.date);
+     
       if (data.result) {
         document.querySelector('#results').innerHTML = '';
 
@@ -73,6 +68,7 @@ document.querySelector('#search').addEventListener('click', function () {
 				`;
       }
     }).catch(error => {
-      console.error("Error:", error);
+      console.error("HTTP error:", error);
+      console.error("Error:", error.message);
     });
 });

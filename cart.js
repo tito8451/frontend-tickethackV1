@@ -1,9 +1,9 @@
-const apiUrl = "https://backend-tickethack-seven.vercel.app" || 'http://localhost:3000';
+const apiUrl = "https://backend-tickethack-one.vercel.app" || 'http://localhost:3000';
 function updateRemoveFromCartEventListener() {
   for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
     document.querySelectorAll('.delete')[i].addEventListener('click', function () {
-      // fetch(`${API_URL}/cart/${this.id}`, { method: 'DELETE' })
-      fetch(`http://localhost:3000/cart/${this.id}`, { method: 'DELETE' })
+      fetch(`${apiUrl}/cart/${this.id}`, { method: 'DELETE' })
+      // fetch(`http://localhost:3000/cart/${this.id}`, { method: 'DELETE' })
         .then(response => response.json())
         .then(data => {
           if (data.result) {
@@ -28,6 +28,7 @@ function updateRemoveFromCartEventListener() {
 
 // Get cart
 fetch(`${apiUrl}/cart`)
+// fetch('http://localhost:3000/cart')
 // fetch('http://localhost:3000/cart')
   .then(response => response.json())
   .then(data => {
@@ -56,7 +57,8 @@ fetch(`${apiUrl}/cart`)
 
 // Purchase
 document.querySelector('#purchase').addEventListener('click', function () {
-  fetch(`${API_URL}/bookings`, { method: 'PUT' })
+  // fetch(`http://localhost:3000/bookings`, { method: 'PUT' })
+  fetch(`${apiUrl}/bookings`, { method: 'PUT' })
     .then(response => response.json())
     .then(data => {
       data.result && window.location.assign('bookings.html');
