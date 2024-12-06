@@ -1,4 +1,4 @@
-const apiUrl ='http://localhost:3000';
+const apiUrl ='https://backend-tickethack-one.vercel.app';
 function updateRemoveFromCartEventListener() {
   for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
     document.querySelectorAll('.delete')[i].addEventListener('click', function () {

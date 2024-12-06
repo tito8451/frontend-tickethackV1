@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'https://backend-tickethack-one.vercel.app';
 
 // Récupérer les réservations payées
 fetch(`${apiUrl}/bookings?isPaid=true`)

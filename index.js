@@ -1,5 +1,5 @@
 // Set date default value to today
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'https://backend-tickethack-one.vercel.app';
 document.querySelector('#date').valueAsDate = new Date();
 
 function updateTripBookingEventListener() {
@@ -40,7 +40,7 @@ document.querySelector('#search').addEventListener('click', function () {
     return response.json();
   })
     .then(data => {
-     
+     console.log("data",data);
       if (data.result) {
         document.querySelector('#results').innerHTML = '';
 
