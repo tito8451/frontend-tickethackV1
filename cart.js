@@ -1,4 +1,4 @@
-const apiUrl = "https://backend-tickethack-one.vercel.app" || 'http://localhost:3000';
+const apiUrl ='http://localhost:3000';
 function updateRemoveFromCartEventListener() {
   for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
     document.querySelectorAll('.delete')[i].addEventListener('click', function () {
@@ -57,10 +57,41 @@ fetch(`${apiUrl}/cart`)
 
 // Purchase
 document.querySelector('#purchase').addEventListener('click', function () {
-  // fetch(`http://localhost:3000/bookings`, { method: 'PUT' })
-  fetch(`${apiUrl}/bookings`, { method: 'PUT' })
-    .then(response => response.json())
+  // Récupérez les IDs des voyages qui sont dans le cart
+  const tripIds = Array.from(document.querySelectorAll('.selected-trip')).map(trip => trip.querySelector('.delete').id);
+
+  // Vérifiez si des voyages sont dans le panier
+  if (tripIds.length === 0) {
+    alert("Your cart is empty, please add trips before purchasing.");
+    return;
+  }
+
+  // Créez un tableau d'objets à envoyer avec isPaid à true
+  const bookingsData = tripIds.map(tripId => ({ tripId, isPaid: true }));
+
+  fetch(`${apiUrl}/bookings`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(bookingsData), // Envoyez le tableau avec les valeurs nécessaires
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
-      data.result && window.location.assign('bookings.html');
+      if (data.result) {
+        window.location.assign('bookings.html');
+      } else {
+        console.error('Failed to update booking:', data.error);
+      }
+    })
+    .catch(error => {
+      console.error("HTTP error:", error);
     });
 });
+
+
